@@ -8,28 +8,23 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
-
 public class DailyDuty {
     private static final String[] ATTENDANTS = {"Kilgore Trout", "Eliot Rosewater", "Billy Pilgrim", "Howard Campbell"};
-
     private static final Map<Integer, Set<LocalDate>> dutyMap = new HashMap<>();
     private static final Set<LocalDate> weekEnds = new TreeSet<>();
     private static volatile AtomicInteger currentId = new AtomicInteger(0);
     private static final Map<Integer, String> userIds = new HashMap<>();
-
     private static final List<LocalDate> HOLIDAYS = Arrays.asList(
             LocalDate.of(2021, 02, 23),
             LocalDate.of(2021, 03, 8),
             LocalDate.of(2021, 05, 3),
             LocalDate.of(2021, 05, 10)
     );
-
     static {
         for (int i = 1; i <= ATTENDANTS.length; i++) {
             dutyMap.put(i, new TreeSet<>());
         }
     }
-
     private static void randomGenerate() {
         Random rGen = new Random();
         List<Integer> randoms = new ArrayList<>();
@@ -84,7 +79,6 @@ public class DailyDuty {
 
         printResult();
     }
-
     private static void printResult() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd");
 
@@ -121,7 +115,6 @@ public class DailyDuty {
         }
         return currentId.incrementAndGet();
     }
-
     private static int previousId() {
         if (currentId.get() == 1) {
             currentId.set(ATTENDANTS.length);
@@ -129,7 +122,6 @@ public class DailyDuty {
         }
         return currentId.decrementAndGet();
     }
-
     private static boolean isHoliday(LocalDate date) {
         return HOLIDAYS.contains(date);
     }
